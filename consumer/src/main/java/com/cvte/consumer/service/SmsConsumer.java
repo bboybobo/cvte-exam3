@@ -1,8 +1,7 @@
 package com.cvte.consumer.service;
 
-import com.cvte.consumer.domain.ShortMessage;
-import com.cvte.consumer.domain.SmsInitDetail;
-import com.cvte.consumer.domain.SmsRepository;
+import com.cvte.consumer.config.CommonUtil;
+import com.cvte.consumer.domain.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class SmsConsumer {
     @Autowired
     private SmsRepository smsRepository;
+
+    @Autowired
+    ReplyMessageRepository replyMessageRepository;
 
     private Gson gson = new GsonBuilder().create();
 
@@ -43,10 +46,24 @@ public class SmsConsumer {
             long timeFrom1970 = nowDate.getTime();
             java.sql.Date date = new java.sql.Date(timeFrom1970);
 
+            //设置url
+            String url = "";
+            if(detail.isNeedReturn()){
+                url = CommonUtil.URL + "/" + UUID.randomUUID().toString().replaceAll("-","");
+            }
+
             ShortMessage shortMessage = new ShortMessage(detail.getSender(), detail.getRevicers().get(i),
-                    contents[i].toString(), date);
+                    contents[i].toString(), date, url);
+            //将发送出去的短信保存至数据库
             smsRepository.save(shortMessage);
-            System.out.println(i);
+
+            //如果需要回复信息，则保存初始信息到数据库
+            if(detail.isNeedReturn()){
+                ReplyMessage replyMessage = new ReplyMessage(url, detail.getSender(), detail.getRevicers().get(i),
+                        contents[i].toString(), date );
+                replyMessageRepository.save(replyMessage);
+            }
+
         }
     }
 }

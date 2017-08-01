@@ -1,8 +1,7 @@
 package com.cvte.consumer.service;
 
-import com.cvte.consumer.domain.Email;
-import com.cvte.consumer.domain.EmailInitDetail;
-import com.cvte.consumer.domain.EmailRepository;
+import com.cvte.consumer.config.CommonUtil;
+import com.cvte.consumer.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -11,12 +10,16 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class EmailConsumer {
 
     @Autowired
     EmailRepository emailRepository;
+
+    @Autowired
+    ReplyMessageRepository replyMessageRepository;
 
     private Gson gson = new GsonBuilder().create();
 
@@ -45,13 +48,25 @@ public class EmailConsumer {
             long timeFrom1970 = nowDate.getTime();
             java.sql.Date date = new java.sql.Date(timeFrom1970);
 
+            //设置url
+            String url = "";
+            if(detail.isNeedReturn()){
+                url = CommonUtil.URL + "/" + UUID.randomUUID().toString().replaceAll("-","");
+            }
             //设置每一封邮件
             Email email = new Email(detail.getSender(), detail.getRevicers().get(i), detail.getNick(),
-                    detail.getTheme(), contents[i].toString(), date);
+                    detail.getTheme(), contents[i].toString(), date, url);
 
             System.out.println(email);
             //保存已发送邮件到数据库
             emailRepository.save(email);
+
+            //如果需要回复信息，则保存初始信息到数据库
+            if(detail.isNeedReturn()){
+                ReplyMessage replyMessage = new ReplyMessage(url, detail.getSender(), detail.getRevicers().get(i),
+                        contents[i].toString(), date );
+                replyMessageRepository.save(replyMessage);
+            }
         }
 
     }

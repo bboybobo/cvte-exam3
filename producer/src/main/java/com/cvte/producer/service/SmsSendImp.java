@@ -1,6 +1,7 @@
 package com.cvte.producer.service;
 
 import com.cvte.producer.domain.SmsInitDetail;
+import com.cvte.producer.domain.SmsInitDetailRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class SmsSendImp implements SmsSend {
 
     @Autowired
     private KafkaTemplate kafkaTemplate;
+
+    @Autowired
+    private SmsInitDetailRepository smsInitDetailRepository;
+
     private Gson gson = new GsonBuilder().create();
 
     @Override
@@ -24,6 +29,10 @@ public class SmsSendImp implements SmsSend {
         SmsInitDetail smsInitDetail = new SmsInitDetail(sender, sendNums, revicers,
                  templete,  params, needReturn);
 
+        //save to database
+        smsInitDetailRepository.save(smsInitDetail);
+
+        //send to queue
         kafkaTemplate.send("SMS",gson.toJson(smsInitDetail));
     }
 }

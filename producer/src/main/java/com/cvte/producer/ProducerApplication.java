@@ -36,7 +36,7 @@ public class ProducerApplication {
 		map2.put("value","2222");
 		params.add(map2);
 		emailSend.emailAsySend("123@edu.cn","tony",2,receivers,
-				"topic",template, params,false);
+				"topic",template, params,true);
 
 
 		SmsSend smsSend = context.getBean(SmsSend.class);
@@ -56,6 +56,6 @@ public class ProducerApplication {
 		map22.put("value","2222");
 		params2.add(map22);
 		smsSend.smsAsySend("15116350264",2,receivers2,
-				template2,params2,false);
+				template2,params2,true);
 	}
 }

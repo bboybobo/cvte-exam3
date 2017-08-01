@@ -16,6 +16,15 @@ public class Email {
     String theme;
     String content;
     Date sendTime;
+    String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Integer getId() {
         return id;
@@ -83,13 +92,14 @@ public class Email {
         this.theme = theme;
         this.content = content;
     }
-    public Email(String sender, String receiver, String nick, String theme, String content, Date sendTime) {
+    public Email(String sender, String receiver, String nick, String theme, String content, Date sendTime, String url) {
         this.sender = sender;
         this.receiver = receiver;
         this.nick = nick;
         this.theme = theme;
         this.content = content;
         this.sendTime = sendTime;
+        this.url = url;
     }
 
     @Override

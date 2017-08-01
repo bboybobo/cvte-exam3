@@ -1,9 +1,17 @@
 package com.cvte.producer.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.LinkedList;
 import java.util.Map;
 
+@Entity
 public class EmailInitDetail {
+    @Id
+    @GeneratedValue
+    Integer id;
+
     String sender;
     String nick;
     int sendNums;

@@ -14,6 +14,15 @@ public class ShortMessage {
     String receiver;
     String content;
     Date sendTime;
+    String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Integer getId() {
         return id;
@@ -58,10 +67,11 @@ public class ShortMessage {
     public ShortMessage() {
     }
 
-    public ShortMessage(String sender, String receiver, String content, Date sendTime) {
+    public ShortMessage(String sender, String receiver, String content, Date sendTime, String url) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
         this.sendTime = sendTime;
+        this.url = url;
     }
 }
