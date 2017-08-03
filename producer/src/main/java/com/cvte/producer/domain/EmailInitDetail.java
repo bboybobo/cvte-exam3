@@ -3,6 +3,7 @@ package com.cvte.producer.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -12,13 +13,19 @@ public class EmailInitDetail {
     @GeneratedValue
     Integer id;
 
+    @NotNull(message = "发送者不能为空")
     String sender;
     String nick;
-    int sendNums;
+    @NotNull(message = "发送数量不能为空")
+    Integer sendNums;
+    @NotNull(message = "接收者不能为空")
     LinkedList<String> revicers;
+    @NotNull(message = "邮件主题不能为空")
     String theme;
+    @NotNull(message = "邮件模板不能为空")
     String templete;
     LinkedList<Map<String, String>> params;
+    @NotNull(message = "是否需要回信参数不能为空")
     boolean needReturn;
 
     public String getSender() {
@@ -29,7 +36,7 @@ public class EmailInitDetail {
         return nick;
     }
 
-    public int getSendNums() {
+    public Integer getSendNums() {
         return sendNums;
     }
 
@@ -61,7 +68,7 @@ public class EmailInitDetail {
         this.nick = nick;
     }
 
-    public void setSendNums(int sendNums) {
+    public void setSendNums(Integer sendNums) {
         this.sendNums = sendNums;
     }
 
@@ -89,7 +96,7 @@ public class EmailInitDetail {
 
     public EmailInitDetail(String sender, String nick, int sendNums, LinkedList<String> revicers,
                            String theme, String templete, LinkedList<Map<String, String>> params,
-                           boolean needReturn) {
+                           boolean needReturn){
         this.sender = sender;
         this.nick = nick;
         this.sendNums = sendNums;
@@ -100,4 +107,18 @@ public class EmailInitDetail {
         this.needReturn = needReturn;
     }
 
+    @Override
+    public String toString() {
+        return "EmailInitDetail{" +
+                "id=" + id +
+                ", sender='" + sender + '\'' +
+                ", nick='" + nick + '\'' +
+                ", sendNums=" + sendNums +
+                ", revicers=" + revicers +
+                ", theme='" + theme + '\'' +
+                ", templete='" + templete + '\'' +
+                ", params=" + params +
+                ", needReturn=" + needReturn +
+                '}';
+    }
 }

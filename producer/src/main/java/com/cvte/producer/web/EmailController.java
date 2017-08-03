@@ -1,5 +1,6 @@
 package com.cvte.producer.web;
 
+import com.cvte.producer.domain.EmailInitDetail;
 import com.cvte.producer.service.EmailSendImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,8 @@ public class EmailController {
     @Autowired
     private EmailSendImp emailSendImp;
 
-    @PostMapping(value = "/email")
-    public void emailAsySend(){}
+    @PostMapping(value = "/asyEmail")
+    public void emailAsySend(EmailInitDetail emailInitDetail){
+        //emailSendImp.emailAsySend();
+    }
 }

@@ -35,7 +35,7 @@ public class ProducerApplication {
 		map2.put("name", "zhangyan");
 		map2.put("value","2222");
 		params.add(map2);
-		emailSend.emailAsySend("123@edu.cn","tony",2,receivers,
+		emailSend.emailAsySend("a@bbc.com","tony",2,receivers,
 				"topic",template, params,true);
 
 

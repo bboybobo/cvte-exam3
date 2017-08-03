@@ -1,9 +1,15 @@
 package com.cvte.consumer.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class EmailInitDetail {
+    @Id
+    @GeneratedValue
+    Integer id;
+
     String sender;
     String nick;
     int sendNums;
@@ -12,6 +18,10 @@ public class EmailInitDetail {
     String templete;
     LinkedList<Map<String, String>> params;
     boolean needReturn;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getSender() {
         return sender;

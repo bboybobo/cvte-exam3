@@ -10,6 +10,7 @@ public class Email {
     @Id
     @GeneratedValue
     Integer id;
+
     String sender;
     String receiver;
     String nick;

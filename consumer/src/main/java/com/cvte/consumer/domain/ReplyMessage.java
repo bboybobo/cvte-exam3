@@ -1,11 +1,14 @@
 package com.cvte.consumer.domain;
 
+import org.springframework.context.annotation.Scope;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
+@Scope("prototype")
 public class ReplyMessage {
     @Id
     @GeneratedValue

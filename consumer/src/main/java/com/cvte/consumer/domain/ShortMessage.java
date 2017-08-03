@@ -74,4 +74,16 @@ public class ShortMessage {
         this.sendTime = sendTime;
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "ShortMessage{" +
+                "id=" + id +
+                ", sender='" + sender + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", content='" + content + '\'' +
+                ", sendTime=" + sendTime +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
