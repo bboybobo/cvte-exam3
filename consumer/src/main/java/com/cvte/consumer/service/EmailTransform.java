@@ -1,6 +1,8 @@
 package com.cvte.consumer.service;
 
 import com.cvte.consumer.domain.*;
+import com.cvte.consumer.domain.foreignInterface.InterfaceTable;
+import com.cvte.consumer.domain.foreignInterface.InterfaceTableRepository;
 import com.cvte.consumer.exception.*;
 import com.cvte.consumer.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class EmailTransform {
 
     @Autowired
     ReplyMessageRepository replyMessageRepository;
+
+    @Autowired
+    InterfaceTableRepository interfaceTableRepository;
 
     private Integer emailInitDetailId;
 
@@ -88,8 +93,10 @@ public class EmailTransform {
     //根据接口真正发送邮件
     public void sendEmails(ArrayList<Email> emails) throws Exception{
         try {
+            InterfaceTable interfaceTable = interfaceTableRepository.findOne(1);
+            String emailInterface = interfaceTable.getEmailInterface();
             for (Email email : emails){
-                System.out.println(email);
+                System.out.println(emailInterface + "\n" + email);
             }
         }catch (Exception ex){
             throw new ConsumerException(ErrorStatusEnum.KAFKA_ERROR.getCode(),emailInitDetailId,

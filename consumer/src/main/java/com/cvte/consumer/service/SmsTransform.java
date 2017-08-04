@@ -1,6 +1,8 @@
 package com.cvte.consumer.service;
 
 import com.cvte.consumer.domain.*;
+import com.cvte.consumer.domain.foreignInterface.InterfaceTable;
+import com.cvte.consumer.domain.foreignInterface.InterfaceTableRepository;
 import com.cvte.consumer.exception.ConsumerException;
 import com.cvte.consumer.exception.ErrorStatusEnum;
 import com.cvte.consumer.util.CommonUtil;
@@ -20,6 +22,9 @@ public class SmsTransform {
 
     @Autowired
     ReplyMessageRepository replyMessageRepository;
+
+    @Autowired
+    InterfaceTableRepository interfaceTableRepository;
 
     @Transactional
     public ArrayList<ShortMessage> getSms(SmsInitDetail detail) {
@@ -90,8 +95,10 @@ public class SmsTransform {
     //根据接口真正发送邮件
     public void sendSms(ArrayList<ShortMessage> shortMessages) throws Exception{
         try {
+            InterfaceTable interfaceTable = interfaceTableRepository.findOne(1);
+            String smsInterface = interfaceTable.getSmsInterface();
             for (ShortMessage shortMessage : shortMessages){
-                System.out.println(shortMessage);
+                System.out.println(smsInterface + "\n" + shortMessage);
             }
         }catch (Exception ex){
             throw new ConsumerException(ErrorStatusEnum.KAFKA_ERROR.getCode(),0,
