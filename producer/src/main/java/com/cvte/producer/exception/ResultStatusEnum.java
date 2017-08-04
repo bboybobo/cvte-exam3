@@ -7,6 +7,9 @@ public enum ResultStatusEnum {
     PARA_ERROR(1,"您传入的参数有误,注意有些参数不能为空值，注意参数类型"),
     DATABASE_SAVE_ERROR(2,"数据库保存异常，请检查您的参数是否有误"),
     KAFKA_ERROR(3,"加入消息队列失败"),
+
+    SYN_SEND_SUCCESS(10,"已成功发送"),
+    SYN_SEND_FAIL(11,"抱歉，发送失败，保存数据库或发送接口出现异常"),
     ;
 
     private Integer statusCode;

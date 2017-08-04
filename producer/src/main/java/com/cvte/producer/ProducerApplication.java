@@ -35,7 +35,7 @@ public class ProducerApplication {
 		map2.put("name", "zhangyan");
 		map2.put("value","2222");
 		params.add(map2);
-		emailSend.emailAsySend("a@bbc.com","tony",2,receivers,
+		emailSend.emailSynSend("a@bbc.com","tony",2,receivers,
 				"topic",template, params,true);
 
 
@@ -55,7 +55,7 @@ public class ProducerApplication {
 		map22.put("name", "张先生");
 		map22.put("value","2222");
 		params2.add(map22);
-		smsSend.smsAsySend("15116350264",2,receivers2,
+		smsSend.smsSynSend("15116350264",2,receivers2,
 				template2,params2,true);
 	}
 }

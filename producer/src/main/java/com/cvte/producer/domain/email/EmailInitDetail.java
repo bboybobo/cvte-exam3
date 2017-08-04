@@ -1,4 +1,4 @@
-package com.cvte.producer.domain;
+package com.cvte.producer.domain.email;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

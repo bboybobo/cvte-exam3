@@ -19,4 +19,16 @@ public interface EmailSend {
     );
 
 
+    //同步发送邮件
+    ReturnData emailSynSend(String sender,
+                            String nick,
+                            int sendNums,
+                            LinkedList<String> revicers,
+                            String theme,
+                            String templete,
+                            LinkedList<Map<String, String>> params,
+                            boolean needReturn
+    );
+
+
 }

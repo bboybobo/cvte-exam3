@@ -1,12 +1,9 @@
 package com.cvte.producer.util;
 
-import com.cvte.producer.domain.EmailInitDetail;
-import com.cvte.producer.domain.SmsInitDetail;
+import com.cvte.producer.domain.email.EmailInitDetail;
+import com.cvte.producer.domain.sms.SmsInitDetail;
 import com.cvte.producer.exception.ProducerException;
 import com.cvte.producer.exception.ResultStatusEnum;
-import org.springframework.validation.BindingResult;
-
-import javax.validation.Valid;
 
 public class CheckNull {
     public static Exception checkEmail(EmailInitDetail emailInitDetail){

@@ -1,8 +1,10 @@
 package com.cvte.producer.web;
 
-import com.cvte.producer.domain.EmailInitDetail;
+import com.cvte.producer.domain.email.EmailInitDetail;
+import com.cvte.producer.service.EmailSend;
 import com.cvte.producer.service.EmailSendImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,4 +17,5 @@ public class EmailController {
     public void emailAsySend(EmailInitDetail emailInitDetail){
         //emailSendImp.emailAsySend();
     }
+
 }
