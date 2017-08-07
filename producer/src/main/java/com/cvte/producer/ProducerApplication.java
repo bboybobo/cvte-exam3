@@ -45,6 +45,7 @@ public class ProducerApplication {
 		receivers2.add("15116350000");
 		String template2 = "你好{$name},你的验证码为{$value}";
 
+
 		LinkedList<Map<String, String>> params2 = new LinkedList();
 		Map<String, String> map21 = new HashMap<String, String>();
 		map21.put("name", "许先生");

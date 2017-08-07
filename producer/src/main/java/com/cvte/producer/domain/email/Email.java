@@ -19,6 +19,7 @@ public class Email {
     Date sendTime;
     String url;
 
+
     public String getUrl() {
         return url;
     }

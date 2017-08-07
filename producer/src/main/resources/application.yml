@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/xubb_test3
-    username: root
-    password: bobo1356
+    url: jdbc:mysql://172.18.81.146:3306/xubb_test3
+    username: xubb
+    password: xubb2017
   jpa:
     hibernate:
       ddl-auto: update

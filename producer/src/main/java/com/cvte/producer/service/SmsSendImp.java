@@ -96,18 +96,23 @@ public class SmsSendImp implements SmsSend {
         }
 
         //保存短信至数据库，并发送
-        boolean isSuccess = saveAndSend(shortMessages);
-        if (isSuccess){
-            returnData = new ReturnData(ResultStatusEnum.SYN_SEND_SUCCESS, null);
-            System.out.println(returnData);
-            return returnData;
-        }else {
+        try {
+            saveAndSend(shortMessages);
+        }catch (Exception ex){
+            ex.printStackTrace();
             returnData = new ReturnData(ResultStatusEnum.SYN_SEND_FAIL, smsInitDetail);
             System.out.println(returnData);
             return returnData;
+
         }
+        returnData = new ReturnData(ResultStatusEnum.SYN_SEND_SUCCESS, null);
+        System.out.println(returnData);
+        return returnData;
+
+
 
     }
+
 
     //进行参数检查，保存数据库，有异常则返回包装后的结果，正常返回空。
     private ReturnData checkAndSaveInitSms(SmsInitDetail smsInitDetail){
@@ -186,41 +191,26 @@ public class SmsSendImp implements SmsSend {
     }
 
     //把要发送出去的短信保存至数据库
-    public boolean saveSmstoDatabase(ArrayList<ShortMessage> shortMessages){
-        try {
-            for (ShortMessage shortMessage : shortMessages){
-                smsRepository.save(shortMessage);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-            return false;       //保存失败
+    public void saveSmstoDatabase(ArrayList<ShortMessage> shortMessages) throws Exception{
+        for (ShortMessage shortMessage : shortMessages){
+            smsRepository.save(shortMessage);
         }
-        return true;        //保存成功
     }
 
 
     //根据接口真正发送邮件
-    public boolean sendSms(ArrayList<ShortMessage> shortMessages){
-        try {
-            InterfaceTable interfaceTable = interfaceTableRepository.findOne(1);
-            String smsInterface = interfaceTable.getSmsInterface();
-            for (ShortMessage shortMessage : shortMessages){
-                System.out.println(smsInterface + "\n" + shortMessage);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-           return false;        //发送失败
+    public void sendSms(ArrayList<ShortMessage> shortMessages) throws Exception{
+        InterfaceTable interfaceTable = interfaceTableRepository.findOne(1);
+        String smsInterface = interfaceTable.getSmsInterface();
+        for (ShortMessage shortMessage : shortMessages){
+            System.out.println(smsInterface + "\n" + shortMessage);
         }
-        return true;            //发送成功
     }
 
     @Transactional   //保证事务性
-    public boolean saveAndSend(ArrayList<ShortMessage> shortMessages){
-        boolean isSuccess = saveSmstoDatabase(shortMessages);
-        if (!isSuccess) return false;
-        isSuccess = sendSms(shortMessages);
-        if (!isSuccess) return false;
-        else return true;
+    public void saveAndSend(ArrayList<ShortMessage> shortMessages) throws Exception{
+        sendSms(shortMessages);
+        saveSmstoDatabase(shortMessages);
     }
 }
 
